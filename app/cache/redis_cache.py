@@ -1,6 +1,6 @@
 import json
 import logging
-
+import os
 import redis
 
 from app.core.config import REDIS_URL
@@ -8,10 +8,12 @@ from app.core.config import REDIS_URL
 logger = logging.getLogger(__name__)
 
 # REDIS_URL example: redis://localhost:6379/0
-redis_client = redis.Redis.from_url(REDIS_URL, decode_responses=True)
+# redis_client = redis.Redis.from_url(REDIS_URL, decode_responses=True)
 
-CACHE_PREFIX = "pred:v1:"   # bump v1 when you retrain or change the model
+REDIS_URL=os.getenv("REDIS_URL")
+redis_client = redis.StrictRedis.Redis.from_url(REDIS_URL, decode_responses=True)
 
+CACHE_PREFIX = "pred:v1:" 
 
 def get_cache_prediction(key: str):
     try:
