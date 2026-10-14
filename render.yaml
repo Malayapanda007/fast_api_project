@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: fastapi-prediction-api
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free                       # change to starter or higher for production (free instances spin down when idle)
+    healthCheckPath: /health
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true          # Render generates a random secret once
+      - key: ALGORITHM
+        value: HS256
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: "30"
+      - key: REDIS_URL
+        fromService:
+          type: keyvalue
+          name: prediction-cache
+          property: connectionString
+
+  - type: keyvalue
+    name: prediction-cache
+    plan: free
+    maxmemoryPolicy: allkeys-lru     # evict old entries when full, which suits a cache
+    ipAllowList: []                  # internal connections only (no public access)
