@@ -11,7 +11,7 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 COPY . .
-COPY app/.env .env
+# COPY app/.env .env
 
 # Run as a non-root user
 RUN useradd --create-home appuser && chown -R appuser /code
