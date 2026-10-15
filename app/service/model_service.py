@@ -2,6 +2,13 @@ import logging
 from app.cache.redis_cache import get_cache_prediction, set_cache_prediction
 from app.models.utils import get_prediction
 from app.service.utils import convert_into_hash
+
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s %(name)s: %(message)s",
+    force=True,  # overrides any handler already attached to the root logger
+)
 logger = logging.getLogger(__name__)
 
 def prediction(data: dict) -> int:
