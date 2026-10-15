@@ -7,6 +7,7 @@ python-dotenv>=1.0
 joblib>=1.3
 pandas>=2.0
 numpy>=1.26
+python-multipart
 
 # IMPORTANT: replace with the exact version that trained/saved your model,
 # e.g. scikit-learn==1.5.2  (check with: pip show scikit-learn)
